@@ -1,9 +1,8 @@
 /* Comment on top of my file */
-console.log('test gulp');
+/* console.log('test gulp');
 
-function test() {   
-}
+function test() {} */
 
-
-/* Another comment */
-/* Last comment before the end of the world! */
+fetch('https://dummyjson.com/products')
+	.then((res) => res.json())
+	.then(console.log);

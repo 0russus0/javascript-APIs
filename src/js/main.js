@@ -1,27 +1,32 @@
 fetch('https://dummyjson.com/products?limit=24')
 	.then((response) => response.json())
 	.then((response) => {
-		results = response.products;
-		resultsDiv = '';
-		for (let i = 0; i < results.length; i++) {
-			//console.log(results[i]);
-			let starsNotation = getStars(results[i].rating);
-			let backgroundColor = getBackgroundPrice(results[i].price);
-			resultsDiv += `
+		products = response.products;
+		displayProducts(results);
+	})
+	.catch(console.error);
+
+function displayProducts(products) {
+	resultsDiv = '';
+	for (let i = 0; i < products.length; i++) {
+		//console.log(results[i]);
+		let starsNotation = getStars(products[i].rating);
+		let backgroundColor = getBackgroundPrice(products[i].price);
+		resultsDiv += `
        <div class="col mb-5">
            <div class="card ${backgroundColor} h-100">
                <img class="card-img-top"
-                   src="${results[i].images[0]}"
+                   src="${products[i].images[0]}"
                    alt="...">
                <!-- Product details-->
                <div class="card-body p-4">
                    <div class="text-center">
                        <!-- Product name-->
-                       <h6 class="fw-bolder">${results[i].brand}</h6>
-                       <h5 class="fw-bolder">${results[i].title}</h5>
+                       <h6 class="fw-bolder">${products[i].brand}</h6>
+                       <h5 class="fw-bolder">${products[i].title}</h5>
                        <h6 class="fw-bolder">${starsNotation}</h6>
                        <!-- Product price-->
-                       ${results[i].price} €
+                       ${products[i].price} €
                    </div>
                </div>
                <!-- Product actions-->
@@ -33,11 +38,9 @@ fetch('https://dummyjson.com/products?limit=24')
            </div>
        </div>
        `;
-		}
-		injectInHTML('products_list', resultsDiv);
-	})
-	.catch(console.error);
-
+	}
+	injectInHTML('products_list', resultsDiv);
+}
 function displayPosts(posts) {
 	let postsDiv = '';
 	for (let i = 0; i < posts.length; i++) {
